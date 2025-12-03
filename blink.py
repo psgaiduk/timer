@@ -21,21 +21,19 @@ try:
 except:
     pass
 
-kyePad = KeyPad(13, 12, 11, 10, 9, 8, 7, 6)
-
+keypad = KeyPad(13, 12, 11, 10, 9, 8, 7, 6)
 buzzer = Buzzer(pin_number=27)
 led = LED(pins=[0, 1, 2])
 
 
 def key():
-    keyvalue = kyePad.scan()
-    if keyvalue != None:
+    keyvalue = keypad.scan()
+    if keyvalue is not None:
         print(keyvalue, end='\t')
         time.sleep_ms(300)
         return keyvalue
 
 while True:
-
     input_key = key()
     irValue = recvPin.ir_read()
     if irValue:
@@ -57,6 +55,4 @@ while True:
             led.set_color(LEDColors.RED)
         elif input_key == '5':
             led.set_color(LEDColors.OFF)
-            
-
 
