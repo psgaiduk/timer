@@ -1,9 +1,11 @@
 
 import time
+from random import randint
 
 from machine import I2C, PWM, Pin
 
 from keypad import KeyPad
+from led import LED, LEDColors
 from I2C_LCD import I2CLcd
 from irrecvdata import irGetCMD
 
@@ -22,25 +24,8 @@ except:
 kyePad = KeyPad(13, 12, 11, 10, 9, 8, 7, 6)
 
 buzzer = PWM(Pin(27))  # GP15
+led = LED(pins=[0, 1, 2])
 
-from machine import Pin, PWM
-from random import randint
-import time
-
-pins = [2, 3, 4]
-freq_num = 10000
-
-pwm0 = PWM(Pin(pins[0]))  #set PWM
-pwm1 = PWM(Pin(pins[1]))
-pwm2 = PWM(Pin(pins[2]))
-pwm0.freq(freq_num)
-pwm1.freq(freq_num)
-pwm2.freq(freq_num)
-
-def setColor(r, g, b):
-    pwm0.duty_u16(65535 - r)
-    pwm1.duty_u16(65535 - g)
-    pwm2.duty_u16(65535 - b)
 
 def key():
     keyvalue = kyePad.scan()
@@ -70,15 +55,9 @@ while True:
         elif input_key == '3':
             lcd.clear()
         elif input_key == '4':
-            try:
-                red   = randint(0, 65535)
-                green = randint(0, 65535)
-                blue  = randint(0, 65535)
-                setColor(red, green, blue)
-                time.sleep_ms(200)
-            except:
-                pwm0.deinit()
-                pwm1.deinit()
-                pwm2.deinit()
+            led.set_color(LEDColors.RED)
+        elif input_key == '5':
+            led.set_color(LEDColors.OFF)
+            
 
 
