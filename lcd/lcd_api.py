@@ -1,5 +1,6 @@
 import time
 
+
 class LcdApi:
     # The following constant names were lifted from the avrlib lcd.h
     # header file, however, I changed the definitions from bit numbers

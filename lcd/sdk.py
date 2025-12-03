@@ -1,4 +1,4 @@
-from LCD_API import LcdApi
+from lcd.lcd_api import LcdApi
 from machine import I2C
 from time import sleep_ms
 
@@ -11,7 +11,7 @@ SHIFT_BACKLIGHT = 3
 SHIFT_DATA = 4
 
 
-class I2CLcd(LcdApi):
+class LCD(LcdApi):
     def __init__(self, i2c, i2c_addr, num_lines, num_columns):
         self.i2c = i2c
         self.i2c_addr = i2c_addr
