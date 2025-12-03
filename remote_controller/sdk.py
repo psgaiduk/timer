@@ -1,6 +1,6 @@
 import machine
 import utime
-import micropython
+
 
 class irGetCMD(object):
     def __init__(self, gpioNum):

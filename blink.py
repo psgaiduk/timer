@@ -7,7 +7,7 @@ from buzzer import Buzzer, Ringtones
 from keypad import KeyPad
 from led import LED, LEDColors
 from lcd import LCD
-from irrecvdata import irGetCMD
+from remote_controller import irGetCMD
 
 
 i2c = I2C(1, sda=Pin(14), scl=Pin(15), freq=400000)
@@ -35,7 +35,7 @@ while True:
         print(input_key, 'input', type(input_key))
         if input_key == '1' or irValue == '0xff30cf':
             lcd.move_to(0, 0)
-            lcd.putstr("Hello, world!")
+            lcd.putstr("Hello, world!!!")
             lcd.move_to(0, 1)
             lcd.putstr("Counter:")
         elif input_key == '2':
