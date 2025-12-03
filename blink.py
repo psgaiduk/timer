@@ -1,9 +1,9 @@
 
 import time
-from random import randint
 
 from machine import I2C, PWM, Pin
 
+from buzzer import Buzzer, Ringtones
 from keypad import KeyPad
 from led import LED, LEDColors
 from I2C_LCD import I2CLcd
@@ -23,7 +23,7 @@ except:
 
 kyePad = KeyPad(13, 12, 11, 10, 9, 8, 7, 6)
 
-buzzer = PWM(Pin(27))  # GP15
+buzzer = Buzzer(pin_number=27)
 led = LED(pins=[0, 1, 2])
 
 
@@ -33,8 +33,9 @@ def key():
         print(keyvalue, end='\t')
         time.sleep_ms(300)
         return keyvalue
-        
+
 while True:
+
     input_key = key()
     irValue = recvPin.ir_read()
     if irValue:
@@ -47,14 +48,12 @@ while True:
             lcd.move_to(0, 1)
             lcd.putstr("Counter:")
         elif input_key == '2':
-            for freq in [200, 400, 800, 1200, 1600, 2000]:
-                buzzer.freq(freq)
-                buzzer.duty_u16(30000)
-                time.sleep(0.3)
-            buzzer.deinit()
+            buzzer.buzz_by_ringtone(Ringtones.WORK_DONE)
         elif input_key == '3':
+            buzzer.buzz_by_ringtone(Ringtones.BREAK_DONE)
             lcd.clear()
         elif input_key == '4':
+            buzzer.buzz_by_ringtone(Ringtones.STOP_REMINDER)
             led.set_color(LEDColors.RED)
         elif input_key == '5':
             led.set_color(LEDColors.OFF)
